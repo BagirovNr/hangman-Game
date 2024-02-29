@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangman Game</title>
+</head>
+<body>
+    
+<script>
+    function chooseRandomWord(wordsArray) {
+        return wordsArray[Math.floor(Math.random() * wordsArray.length)];
+    }
+
+    function initializeAnswer(word) {
+        let answer = [];
+        for (let i = 0; i < word.length; i++) {
+            answer[i] = "_";
+        }
+        return answer;
+    }
+
+    function playHangman() {
+        const words = [
+    "program",
+    "monkey",
+    "beautiful",
+    "pancake",
+    "guitar",
+    "bicycle",
+    "computer",
+    "elephant",
+    "dolphin",
+    "cat",
+    "dog",
+    "dad",
+    "mom",
+    "grandfather",
+    "brother",
+    "aunt",
+    "programmer",
+    "elephant",
+    "grandfather",
+    "grandmother",
+    "grandmother",
+    "dad",
+    "mom",
+    "wolf",
+    "bear",
+    "giraffe",
+    "mouse",
+    "boy",
+    "girl",
+    "boy",
+    "girl",
+    "snack",
+    "juice",
+    "bread",
+    "candy",
+    "banana",
+    "cookie",
+    "milk",
+    "juice",
+    "chocolate",
+    "candy",
+    "body",
+    "head",
+    "face",
+    "mouth",
+    "ear",
+    "eye",
+    "eyebrow",
+    "eyelash",
+    "nose",
+    "lip",
+    "eyeball",
+    "carrot",
+    "apple",
+    "orange",
+    "pear",
+    "peach",
+    "grape",
+    "watermelon",
+    "strawberry",
+    "blueberry",
+    "pineapple",
+    "kiwi",
+    "lemon",
+    "lime",
+    "melon",
+    "pomegranate",
+    "fig",
+    "avocado",
+    "coconut",
+    "banana",
+    "plum",
+    "mango",
+    "cherry",
+    "apricot",
+    "blackberry",
+    "raspberry",
+    "cranberry",
+    "peanut",
+    "almond",
+    "cashew",
+    "pistachio",
+    "walnut",
+    "pecan",
+    "hazelnut",
+    "macadamia",
+    "chestnut",
+    "lobster",
+    "crab",
+    "shrimp",
+    "prawn",
+    "oyster",
+    "clam",
+    "mussel",
+    "scallop",
+    "squid",
+    "octopus",
+    "eel",
+    "cod",
+    "salmon",
+    "tuna",
+    "trout",
+    "mackerel",
+    "sardine",
+    "herring",
+    "anchovy",
+    "swordfish",
+    "carp",
+    "catfish",
+    "perch",
+    "pike",
+    "sturgeon",
+    "sole",
+    "flounder",
+    "halibut",
+    "skate",
+    "ray",
+    "bass",
+    "grouper",
+    "snapper",
+    "tilapia",
+    "crocodile",
+    "alligator",
+    "caiman",
+    "lizard",
+    "gecko",
+    "iguana",
+    "chameleon",
+    "turtle",
+    "tortoise",
+    "snake",
+    "python",
+    "cobra",
+    "rattlesnake",
+    "viper",
+    "boa",
+    "anaconda",
+    "constrictor",
+    "monitor",
+    "komodo",
+    "crocodile",
+    "giraffe",
+    "elephant",
+    "rhinoceros",
+    "hippopotamus",
+    "zebra",
+    "lion",
+    "tiger",
+    "leopard",
+    "cheetah",
+    "jaguar",
+    "panther",
+    "cougar",
+    "lynx",
+    "bobcat",
+    "ocelot",
+    "wolf",
+    "coyote",
+    "fox",
+    "jackal",
+    "hyena",
+    "dingo",
+    "bear",
+    "grizzly",
+    "panda",
+    "kangaroo",
+    "wallaby",
+    "koala",
+    "wombat",
+    "kookaburra",
+    "emu",
+    "cassowary",
+    "ostrich",
+    "rhea",
+    "kiwi",
+    "moa",
+    "peacock",
+    "turkey",
+    "chicken",
+    "duck",
+    "goose",
+    "swan",
+    "pigeon",
+    "dove",
+    "sparrow",
+    "starling",
+    "magpie",
+    "crow",
+    "raven",
+    "robin",
+    "bluebird",
+    "thrush",
+    "warbler",
+    "finch",
+    "canary",
+    "cardinal",
+    "jay",
+    "wren",
+    "oriole",
+    "woodpecker",
+    "nuthatch",
+    "tit",
+    "chickadee",
+    "swift",
+    "swallow",
+    "hummingbird",
+    "kingfisher",
+    "cormorant",
+    "heron",
+    "egret",
+    "stork",
+    "pelican",
+    "albatross",
+    "petrel",
+    "puffin",
+    "frigatebird",
+    "gannet",
+    "tern",
+    "skimmer",
+    "booby",
+    "kittiwake",
+    "fulmar",
+    "guillemot",
+    "murre",
+    "razorbill",
+    "auklet",
+    "sandpiper",
+    "phalarope",
+    "jacana",
+    "oystercatcher",
+    "plover",
+    "lapwing",
+    "curlew",
+    "godwit",
+    "snipe",
+    "woodcock",
+    "avocet",
+    "stilt",
+    "ibis",
+    "spoonbill",
+    "flamingo",
+    "grebe",
+    "loon",
+    "pelican",
+    "cormorant",
+    "albatross",
+    "petrel",
+    "puffin",
+    "booby",
+    "kittiwake",
+    "tern",
+    "skimmer",
+    "gull",
+    "murre",
+    "razorbill",
+    "auklet",
+    "seagull",
+    "gannet",
+    "guillemot",
+    "phalarope",
+    "shearwater",
+    "fulmar",
+    "jacana",
+    "oystercatcher",
+    "plover",
+    "lapwing",
+    "curlew",
+    "godwit",
+    "snipe",
+    "woodcock",
+    "sandpiper",
+    "avocet",
+    "stilt",
+    "ibis",
+    "spoonbill",
+    "flamingo",
+    "grebe",
+    "loon",
+    "rail",
+    "coot",
+    "crane",
+    "swan",
+    "pelican",
+    "cormorant",
+    "albatross",
+    "petrel",
+    "puffin",
+        ];
+
+        const maxTries = 5;
+        let word = chooseRandomWord(words);
+        let answer = initializeAnswer(word);
+        let remainingLetters = word.length;
+        let tryCount = 1;
+
+        while (remainingLetters > 0 && tryCount <= maxTries) {
+            let guess = prompt("Enter a letter or press Cancel to exit || Remaining tries: " + (maxTries - tryCount + 1));
+
+            if (guess === null) {
+                break;
+            } else if (guess === "") {
+                alert("Please enter a letter");
+            } else if (guess.length !== 1) {
+                alert("Please enter only one letter");
+            } else {
+                guess = guess.toLowerCase();
+                let correctGuess = false;
+                for (let j = 0; j < word.length; j++) {
+                    if (word[j] === guess) {
+                        if (answer[j] === "_") {
+                            answer[j] = guess;
+                            remainingLetters--;
+                            correctGuess = true;
+                        } else {
+                            alert("You've already guessed this letter.");
+                            correctGuess = true;
+                            break;
+                        }
+                    }
+                }
+                if (!correctGuess) {
+                    alert("Incorrect! Try again.");
+                    tryCount++;
+                }
+            }
+            alert("Word: " + answer.join(" "));
+        }
+
+        if (remainingLetters === 0) {
+            alert("Congratulations! You guessed the word: " + word);
+        } else {
+            alert("Unfortunately, you've exhausted all tries. The word was: " + word);
+        }
+    }
+
+    playHangman();
+</script>
+
+</body>
+</html>
